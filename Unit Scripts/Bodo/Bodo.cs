@@ -109,19 +109,19 @@ public class Bodo : MonoBehaviour
 
             // Moves five times right, five times left, repeats
 
-            if (count % 25 == 0)
+            if (count % 3 == 0)
             {   // Once count is high enough, spawn a hit effect
                 HitScript.BodoFlurry();   
             }
-            if (count >= 50)
+            if (count >= 6)
             {   // Resets count for next round of movement
                 count = 0;
             }
-            if (count < 25)
+            if (count < 3)
             {   // Moves to the right
                 transform.Translate(Vector2.right * Time.deltaTime);
             }
-            if(count >= 25 && count < 50)
+            if(count >= 3 && count < 6)
             {   // Moves to the left
                 transform.Translate(Vector2.left * Time.deltaTime);
             }

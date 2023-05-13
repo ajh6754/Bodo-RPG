@@ -150,7 +150,7 @@ public class EvilBanana : MonoBehaviour
         {   // Deals with initial kick of Bodo Combinaison
             
             // stops previous hit coroutine
-            StopCoroutine(Hit());
+            StartCoroutine(Hit());
             me.transform.position = startPos.transform.position;
             HitScript.BodoCombinationFirst();
             damage = (int)Random.Range(45f, 60f);
@@ -191,20 +191,24 @@ public class EvilBanana : MonoBehaviour
     /// 
     private IEnumerator Hit() // MUST UPDATE METHOD, VERY FLAWED
     {
-        me.transform.position = startPos.transform.position;
-        me.transform.position = new Vector2(7.25f, .65f);
-        yield return new WaitForSeconds(.05f);
-        me.transform.position = new Vector2(6.75f, .65f);
-        yield return new WaitForSeconds(.05f);
-        me.transform.position = new Vector2(7.2f, .65f);
-        yield return new WaitForSeconds(.05f);
-        me.transform.position = new Vector2(6.8f, .65f);
-        yield return new WaitForSeconds(.05f);
-        me.transform.position = new Vector2(7.15f, .65f);
-        yield return new WaitForSeconds(.05f);
-        me.transform.position = new Vector2(6.85f, .65f);
-        yield return new WaitForSeconds(.05f);
-        me.transform.position = startPos.transform.position;
+        // shift variable for left/right movement
+        float shift = .25f;
+
+        // sets horizontal position to 0
+        me.transform.position = new Vector2(startPos.transform.position.x, me.transform.position.y);
+
+        // changes horizontal position left and right numerous times
+        for(int i = 0; i < 3; i++)
+        {
+            me.transform.position = new Vector2(startPos.transform.position.x + shift, me.transform.position.y);
+            yield return new WaitForSeconds(.05f);
+            me.transform.position = new Vector2(startPos.transform.position.x - shift, me.transform.position.y);
+            yield return new WaitForSeconds(.05f);
+            shift = shift / 2;
+        }
+
+        // resets horizontal position
+        me.transform.position = new Vector2(startPos.transform.position.x, me.transform.position.y);
     }
 
     /// HitUp is the coroutine that deals with the hitting up portion of Bodo
