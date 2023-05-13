@@ -49,6 +49,7 @@ public class TurnSystem : MonoBehaviour
     public Text LorenzoHealth;
     public Text LorenzoSP;
 
+    // Dialogue variables
     public Button dialogue;
     public Text dialogueText;
 
