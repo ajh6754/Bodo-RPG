@@ -422,19 +422,23 @@ public class Bodo : MonoBehaviour
     /// 
     private IEnumerator Hit() // MUST UPDATE TRANSFORMATION SEQUENCE, VERY FLAWED
     {
-        player.transform.position = playerStartPos.transform.position;
-        player.transform.position = new Vector2(-6.37f, .65f);
-        yield return new WaitForSeconds(.05f);
-        player.transform.position = new Vector2(-6.87f, .65f);
-        yield return new WaitForSeconds(.05f);
-        player.transform.position = new Vector2(-6.42f, .65f);
-        yield return new WaitForSeconds(.05f);
-        player.transform.position = new Vector2(-6.82f, .65f);
-        yield return new WaitForSeconds(.05f);
-        player.transform.position = new Vector2(-6.47f, .65f);
-        yield return new WaitForSeconds(.05f);
-        player.transform.position = new Vector2(-6.77f, .65f);
-        yield return new WaitForSeconds(.05f);
-        player.transform.position = playerStartPos.transform.position;
+        // shift variable for left/right movement
+        float shift = .25f;
+
+        // sets horizontal position to 0
+        player.transform.position = new Vector2(playerStartPos.transform.position.x, player.transform.position.y);
+
+        // changes horizontal position left and right numerous times
+        for (int i = 0; i < 3; i++)
+        {
+            player.transform.position = new Vector2(playerStartPos.transform.position.x + shift, player.transform.position.y);
+            yield return new WaitForSeconds(.05f);
+            player.transform.position = new Vector2(playerStartPos.transform.position.x - shift, player.transform.position.y);
+            yield return new WaitForSeconds(.05f);
+            shift = shift / 2;
+        }
+
+        // resets horizontal position
+        player.transform.position = new Vector2(playerStartPos.transform.position.x, player.transform.position.y);
     }
 }
